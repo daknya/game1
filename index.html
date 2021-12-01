@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     .container{
+         max-width: fit-content;
+         margin: auto;
+         margin-top: 20px;
+     }
+        .winner{
+            color:green;
+
+        }
+        .loser{
+             color:red;
+        }
+        #p1button{
+           transform: rotate(180deg);
+           width: 300px;
+           height: 60px;
+           
+        }
+        #p2button{
+            width: 300px;
+           height: 60px;
+        }
+        .inside{
+            display: flex;
+            justify-content: space-between;
+        }
+       #no1{
+           height: 200px;
+           transform: rotate(180deg);
+       }
+       #no2{
+           height: 200px;
+       }
+       #reset{
+           height: 50px;
+           
+       }
+       #play{
+           height: 50px;
+       }
+       .H1{
+           text-align: center;
+       }
+       .pro{
+           background-color: green;
+           text-align: center;
+           font-weight: 300;
+           text-transform: uppercase;
+       }
+       .noob{
+           background-color: red;
+           text-align: center;
+           font-weight: 300;
+           text-transform: uppercase;
+
+       }
+    </style>
+</head>
+<body>
+   <div class="container">
+       <h1 class="H1">TAP-TAP</h1>
+    <button id="p1button"> player 1</button>
+    <div id="no1"></div>
+ <div class="inside">   <button id="reset">reset</button> <h1> <span id="p1score">0</span> to <span id="p2score"> 0 </span> </h1>
+      <select name="" id="play">
+
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+     </select></div>
+<div id="no2"></div> 
+ <button id="p2button"> player 2</button>
+ 
+
+
+</div> 
+</body>
+<script>
+
+    const p1button = document.querySelector('#p1button');
+    const p2button = document.querySelector('#p2button');
+    const gamepoint = document.querySelector('#play');
+    const p1display = document.querySelector('#p1score');
+    const p2display = document.querySelector('#p2score');
+    const reset = document.querySelector('#reset');
+    const pro = document.querySelector('#no1');
+    const noob = document.querySelector('#no2');
+
+    let p1score = 0 ;
+    let p2score = 0 ;
+    let winningscore = 10 ;
+    let isgameover = false ;
+
+  
+
+    p1button.addEventListener('click',function(){
+        if(!isgameover){
+        p1score += 1;
+               if(p1score === winningscore){
+            isgameover = true; 
+           
+            p1display.classList.add("winner");
+            p2display.classList.add("loser");
+            pro.classList.add("pro");
+            noob.classList.add("noob");
+            pro.textContent = 'you won';
+            noob.textContent = 'you lose';
+        }
+        p1display.textContent = p1score;
+    }
+    });
+    p2button.addEventListener('click',function(){
+        if(!isgameover){
+        p2score += 1;
+               if(p2score === winningscore){
+            isgameover = true; 
+            p2display.classList.add("winner");
+            p1display.classList.add("loser");
+            pro.classList.add("noob");
+            noob.classList.add("pro");
+            pro.textContent = 'you lose';
+            noob.textContent = 'you won';
+        }
+        p2display.textContent = p2score;
+    }
+    });
+    reset.addEventListener('click',restart);
+
+    function restart(){
+        p2display.textContent = '0';
+    
+        p1display.textContent = '0';
+
+        p1display.classList.remove("winner","loser");
+        p2display.classList.remove("loser","winner");
+        pro.classList.remove("pro","noob");
+            noob.classList.remove("noob","pro");
+            pro.textContent = '';
+            noob.textContent = '';
+       return p2score = 0,  p1score = 0 ,isgameover=false ;
+        
+         
+    }
+    gamepoint.addEventListener('click',function(){
+       winningscore = parseInt(this.value);
+      restart();
+    })
+</script>
+</html>
